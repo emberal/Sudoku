@@ -6,10 +6,10 @@ package sudoku.board;
 
 public class Square {
 
-    private byte nr;
+    private int nr;
     private final boolean EDITABLE; //Numbers set by the game, should not be editable by the player
 
-    public Square(byte nr) {
+    public Square(int nr) {
 
         if (nr != -1) {
             this.nr = nr;
@@ -35,11 +35,16 @@ public class Square {
         return "[" + stringNr + "]";
     }
 
-    public void setNr(byte nr) {
-        this.nr = nr;
+    public void setNr(int nr) {
+        if (EDITABLE) {
+            this.nr = nr;
+        }
+        else {
+            System.out.println("Not editable!");
+        }
     }
 
-    public byte getNr() {
+    public int getNr() {
         return nr;
     }
 
