@@ -34,7 +34,7 @@ public class Block {
     }
 
     // Checks for duplicate numbers in the block
-    public boolean unique() {
+    public boolean unique() { //FIXME
         for (int r = 0; r < squares.length; r++) {
             for (int c = 0; c < squares[r].length; c++) {
 
@@ -42,7 +42,7 @@ public class Block {
                     for (int r1 = 0; r1 < squares.length; r1++) {
                         for (int c1 = 0; c1 < squares[r1].length; c1++) {
 
-                            if (squares[r][c] == squares[r1][c1] && !(r == r1 || c == c1) ) {
+                            if (squares[r][c] == squares[r1][c1] && !(r == r1 || c == c1) ) { //FIXME feil her!
                                 return false;
                             }
                         }
