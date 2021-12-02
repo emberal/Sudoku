@@ -80,30 +80,6 @@ public class Block { //TODO Tests
        return null;
     }
 
-    /**
-     * Checks for duplicate numbers in the block
-     * @return boolean
-     */
-
-    public boolean unique() { //FIXME
-        for (int r = 0; r < squares.length; r++) {
-            for (int c = 0; c < squares[r].length; c++) {
-
-                if (squares[r][c] != null) {
-                    for (int r1 = 0; r1 < squares.length; r1++) {
-                        for (int c1 = c+1; c1 < squares[r1].length; c1++) {
-
-                            if (squares[r][c] == squares[r1][c1]) {
-                                return false;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return true;
-    }
-
     public boolean exist(int nr) {
 
         for (Square[] r : squares) {
