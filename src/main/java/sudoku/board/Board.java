@@ -14,4 +14,21 @@ public class Board {
             }
         }
     }
+
+    public Block[][] getBoard() {
+        return board;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder all = new StringBuilder();
+
+        for (Block[] r : board) {
+            for (Block b : r) {
+                all.append(b);
+            }
+            //all.append("\n");
+        }
+        return all.toString();
+    }
 }

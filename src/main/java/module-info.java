@@ -1,8 +1,8 @@
-module sudoku.sudoku {
+module sudoku.board {
     requires javafx.controls;
     requires javafx.fxml;
 
 
-    opens sudoku.sudoku to javafx.fxml;
-    exports sudoku.sudoku;
+    opens sudoku.board to javafx.fxml;
+    exports sudoku;
 }
