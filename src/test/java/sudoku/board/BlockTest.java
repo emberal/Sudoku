@@ -3,28 +3,74 @@ package sudoku.board;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 public class BlockTest { //TODO Tests
 
     Block block;
 
     private void setUp() {
-        block = new Block();
+        block = new Block(false);
+    }
+
+    private void fullBlock() {
+        setUp();
+
+        int i = 1;
+        for (Square[] r : block.getSquares()) {
+            for (Square c : r) {
+                c.setNr(i);
+                i++;
+            }
+        }
     }
 
     @Test
     void completeBlockTest() {
         setUp();
+        fullBlock();
 
-        int i = 1;
-        for (int r = 0; r < block.getSquares().length; r++) {
-            for (int c = 0; c < block.getSquares()[r].length; c++) {
-                block.getSquares()[r][c].setNr(i);
-                i++;
-            }
-        }
-
-        Assertions.assertTrue(block.completeBlock() );
         System.out.println(block);
+        Assertions.assertTrue(block.completeBlock() );
+    }
+
+    @Test
+    void completeHorizontalTest() {
+        setUp();
+
+        block.getSquares()[0][1].setNr(2);
+        block.getSquares()[0][2].setNr(3);
+
+        Square[] squares = block.completeHorizontal();
+        System.out.println(Arrays.toString(squares) );
+        Assertions.assertNull(squares);
+
+        fullBlock();
+        squares = block.completeHorizontal();
+        System.out.println(Arrays.toString(squares) );
+        Assertions.assertNotNull(squares);
+
+        block.getSquares()[0][1].setNr(0);
+        block.getSquares()[1][1].setNr(0);
+        block.getSquares()[2][1].setNr(0);
+
+        squares = block.completeHorizontal();
+        System.out.println(Arrays.toString(squares));
+        Assertions.assertNull(squares);
+    }
+
+    @Test
+    void completeVerticalTest() {
+        setUp();
+
+        Square[] squares = block.completeVertical();
+        System.out.println(Arrays.toString(squares) );
+        Assertions.assertNull(squares);
+
+        fullBlock();
+        squares = block.completeVertical();
+        System.out.println(Arrays.toString(squares) );
+        Assertions.assertNotNull(squares);
     }
 
     @Test
@@ -37,9 +83,12 @@ public class BlockTest { //TODO Tests
     void existTest() {
         setUp();
 
-        block.getSquares()[1][1].setNr(2);
+        block.setSquares(new Square[][] {{new Square(1), new Square(2)}});
+
+        System.out.println(block);
+
         Assertions.assertTrue(block.exist(2) );
-        Assertions.assertFalse(block.exist(1));
+        Assertions.assertFalse(block.exist(3));
     }
 
 }

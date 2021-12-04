@@ -10,7 +10,7 @@ public class Board {
         //Creates i objects of 3x3 Squares
         for (int r = 0; r < board.length; r++) {
             for (int k = 0; k < board[r].length; k++) {
-                board[r][k] = new Block();            
+                board[r][k] = new Block(true);
             }
         }
     }
