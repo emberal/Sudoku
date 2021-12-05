@@ -1,7 +1,11 @@
 package sudoku.board;
 
-import java.util.Arrays;
+import sudoku.gui.Interface;
+
 import java.util.Random;
+
+import static sudoku.board.Board.LEN;
+import static sudoku.board.Board.LEN_TOT;
 
 /*
  * Array[][] containing all squares in a 3x3 area
@@ -10,9 +14,6 @@ import java.util.Random;
  */
 
 public class Block { //TODO Tests
-
-    private static final int LEN = 3;
-    private static final int LEN_TOT = LEN*LEN;
 
     private Square[][] squares;
 
@@ -25,13 +26,14 @@ public class Block { //TODO Tests
         squares = new Square[LEN][LEN];
 
         for (int r = 0; r < squares.length; r++) {
-            for (int k = 0; k < squares[r].length; k++) {
+            for (int c = 0; c < squares[r].length; c++) {
                 if (generate) {
-                    squares[r][k] = new Square(generateNr() );
+                    squares[r][c] = new Square(generateNr() );
                 }
                 else {
-                    squares[r][k] = new Square(-1);
+                    squares[r][c] = new Square(-1);
                 }
+                Interface.createSquare(r, c);
             }
         }
     }
