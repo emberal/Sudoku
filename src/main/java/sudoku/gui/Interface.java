@@ -74,11 +74,11 @@ public abstract class Interface {
         final int SIZE = 30;
         Rectangle square = new Rectangle(SIZE, SIZE, Color.gray(0.7) );
         square.setStroke(Color.gray(0) );
-        square.setId(col + ";" + row); //Gives each square a unique ID
+        square.setId(row + ";" + col); //Gives each square a unique ID
 
         square.setOnMouseClicked(GameBoard::onClick);
 
-        BOARD.add(square, row, col);
+        BOARD.add(square, col, row);
 
         // Increases column by 3 for each block created
         // Increases row by 3 if three blocks have been created, and resets column count
