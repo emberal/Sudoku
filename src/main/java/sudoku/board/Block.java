@@ -15,6 +15,8 @@ import static sudoku.board.Board.LEN_TOT;
 
 public class Block { //TODO Tests
 
+    private static int rowNr = 0, colNr = 0;
+
     private Square[][] squares;
 
     /**
@@ -33,7 +35,28 @@ public class Block { //TODO Tests
                 else {
                     squares[r][c] = new Square(-1);
                 }
-                Interface.createSquare(r, c);
+                Interface.createSquare(r + rowNr, c + colNr);
+                Interface.updateValue(squares[r][c].getNr(), r + rowNr, c + colNr);
+                adjustPos(r, c); //Updates rowNr and colNr
+            }
+        }
+    }
+
+    /**
+     * Increases column by 3 for each block created
+     * Increases row by 3 if three blocks have been created, and resets column count
+     * @param row
+     * @param col
+     */
+
+    private static void adjustPos(int row, int col) { //TODO change to something better!!!
+        if (row % LEN == 2 && col % LEN == 2) {
+            if (colNr == LEN_TOT-LEN) {
+                rowNr += LEN;
+                colNr = 0;
+            }
+            else {
+                colNr += LEN;
             }
         }
     }
@@ -75,11 +98,12 @@ public class Block { //TODO Tests
     }
 
     /**
-     * Returns the first complete vertical line
-     * @return Square[]
+     * Check if a horizontal row has unique numbers
+     * @param n Index of the horizontal row
+     * @return Square[] - Returns the array if all numbers are unique, else null
      */
 
-    public Square[] completeHorizontal() { //TODO Test
+    public Square[] completeHorizontal(int n) { //TODO change to check parameter
 
         Square[] hori = new Square[LEN];
         boolean complete = false;
@@ -105,11 +129,12 @@ public class Block { //TODO Tests
     }
 
     /**
-     * Returns the first complete horizontal line
-     * @return Square[]
+     * Check if a vertical row has unique numbers
+     * @param n Index of the vertical row
+     * @return Square[] - Returns the array if all numbers are unique, else null
      */
 
-    public Square[] completeVertical() { //TODO Test
+    public Square[] completeVertical(int n) { //TODO Test
 
         Square[] vert = new Square[LEN];
         boolean complete = false;

@@ -35,18 +35,18 @@ public class BlockTest { //TODO Tests
     }
 
     @Test
-    void completeHorizontalTest() {
+    void completeHorizontalTest() { //TODO Test
         setUp();
 
         block.getSquares()[0][1].setNr(2);
         block.getSquares()[0][2].setNr(3);
 
-        Square[] squares = block.completeHorizontal();
+        Square[] squares = block.completeHorizontal(0);
         System.out.println(Arrays.toString(squares) );
         Assertions.assertNull(squares);
 
         fullBlock();
-        squares = block.completeHorizontal();
+        squares = block.completeHorizontal(0);
         System.out.println(Arrays.toString(squares) );
         Assertions.assertNotNull(squares);
 
@@ -54,21 +54,21 @@ public class BlockTest { //TODO Tests
         block.getSquares()[1][1].setNr(0);
         block.getSquares()[2][1].setNr(0);
 
-        squares = block.completeHorizontal();
+        squares = block.completeHorizontal(0);
         System.out.println(Arrays.toString(squares));
         Assertions.assertNull(squares);
     }
 
     @Test
-    void completeVerticalTest() {
+    void completeVerticalTest() { //TODO Test
         setUp();
 
-        Square[] squares = block.completeVertical();
+        Square[] squares = block.completeVertical(0);
         System.out.println(Arrays.toString(squares) );
         Assertions.assertNull(squares);
 
         fullBlock();
-        squares = block.completeVertical();
+        squares = block.completeVertical(0);
         System.out.println(Arrays.toString(squares) );
         Assertions.assertNotNull(squares);
     }

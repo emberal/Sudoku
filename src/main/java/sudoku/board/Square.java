@@ -1,9 +1,5 @@
 package sudoku.board;
 
-/* Creates a single square object
- * Containing byte number between 1-9
- */
-
 public class Square {
 
     private int nr;

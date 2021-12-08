@@ -2,6 +2,7 @@ package sudoku.gui;
 
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
@@ -12,15 +13,11 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import sudoku.control.GameBoard;
 
-import static sudoku.board.Board.LEN;
-import static sudoku.board.Board.LEN_TOT;
-
 public abstract class Interface {
 
     private static final BorderPane PANE = new BorderPane();
     private static final GridPane BOARD = new GridPane();
-
-    private static int rowNr = 0, colNr = 0;
+    public static final Scene SCENE = new Scene(PANE, 1000, 500); //TODO window size
 
     /**
      * Sets up the scene
@@ -29,8 +26,7 @@ public abstract class Interface {
 
     public static void start(Stage stage) {
         stage.setTitle("Sudoku");
-        Scene scene = new Scene(PANE, 1000, 500); //TODO window size
-        stage.setScene(scene);
+        stage.setScene(SCENE);
         stage.show();
 
         hbox();
@@ -70,27 +66,55 @@ public abstract class Interface {
      */
 
     public static void createSquare(int row, int col) { //TODO print numbers on the board
-        row += rowNr; col += colNr;
         final int SIZE = 30;
         Rectangle square = new Rectangle(SIZE, SIZE, Color.gray(0.7) );
         square.setStroke(Color.gray(0) );
         square.setId(row + ";" + col); //Gives each square a unique ID
 
-        square.setOnMouseClicked(GameBoard::onClick);
+        square.setOnMouseClicked(GameBoard::onClick); //TODO Move to different method?
 
         BOARD.add(square, col, row);
+    }
 
-        // Increases column by 3 for each block created
-        // Increases row by 3 if three blocks have been created, and resets column count
-        if (row % LEN == 2 && col % LEN == 2 && colNr <= LEN_TOT) {
-            if (colNr == LEN_TOT-LEN) {
-                rowNr += LEN;
-                colNr = 0;
-            }
-            else {
-                colNr += LEN;
-            }
+    /**
+     * Sets the value in the label on the GameBoard
+     *
+     * @param v The value
+     * @param row Position across x-axis
+     * @param col Position across y-axis
+     * @return boolean - If the method was successfull return true
+     */
+
+    public static boolean updateValue(int v, int row, int col) {
+
+        if (v > 9 || v < 0) {
+            return false;
         }
+
+        Label value = new Label();
+        String s = "   ";
+
+        if (v == 0) {
+            s += " ";
+        }
+        else {
+            s += Integer.toString(v);
+        }
+        value.setText(s);
+
+        value.setDisable(true); //Disables the numbers, so they don't block the squares
+        value.setOpacity(1); //Sets the opacity back to 0%
+
+        BOARD.add(value,col,row);
+        return true;
+    }
+
+    /**
+     *
+     */
+
+    public static void updateAllValues() { //TODO Nesseccary?
+
     }
 
 }
