@@ -103,29 +103,19 @@ public class Block { //TODO Tests
      * @return Square[] - Returns the array if all numbers are unique, else null
      */
 
-    public Square[] completeHorizontal(int n) { //TODO change to check parameter
+    public Square[] completeHorizontal(int n) { //TODO Test
 
-        Square[] hori = new Square[LEN];
-        boolean complete = false;
+        Square[] horizontal = new Square[LEN];
 
-        for (Square[] row : squares) {
-            if (row != null && row[0].getNr() != 0) {
-                for (int i = 1; i < hori.length; i++) {
-                    if (row[i] != row[i - 1] && row[i].getNr() != 0) {
-                        complete = true;
-                    }
-                    else {
-                        complete = false;
-                        break;
-                    }
+        for (int r = 0; r < squares[n].length-1; r++) {
+            for (int c = r+1; c < squares[n].length; c++) {
+                if (squares[n][r].getNr() == 0 || squares[n][r] == squares[n][c]) {
+                    return null;
                 }
-            }
-            if (complete) {
-                System.arraycopy(row, 0, hori, 0, hori.length);
-                return hori;
+                horizontal[r] = squares[n][r];
             }
         }
-        return null;
+        return horizontal;
     }
 
     /**
@@ -136,23 +126,17 @@ public class Block { //TODO Tests
 
     public Square[] completeVertical(int n) { //TODO Test
 
-        Square[] vert = new Square[LEN];
-        boolean complete = false;
+        Square[] vertical = new Square[LEN];
 
-        for (int c = 0; c < squares.length; c++) {
-            for (int r = 1; r < vert.length; r++) {
-                if (squares[r] != null && squares[r-1][0].getNr() != 0) {
-                    complete = squares[r][c] != squares[r - 1][c] && squares[r][c].getNr() != 0;
+        for (int r = 0; r < squares[n].length-1; r++) {
+            for (int c = r+1; c < squares[n].length; c++) {
+                if (squares[r][n].getNr() == 0 || squares[r][n] == squares[c][n]) {
+                    return null;
                 }
+                vertical[r] = squares[r][n];
             }
         }
-        if (complete) {
-            for (int i = 0; i < vert.length; i++) {
-                vert[i] = squares[i][0];
-            }
-            return vert;
-        }
-        return null;
+        return vertical;
     }
 
     public boolean exist(int nr) {
