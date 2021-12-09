@@ -44,4 +44,7 @@ public class Square {
         return nr;
     }
 
+    public boolean isEDITABLE() {
+        return EDITABLE;
+    }
 }

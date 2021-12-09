@@ -1,6 +1,7 @@
 package sudoku.gui;
 
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
@@ -11,7 +12,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import sudoku.control.GameBoard;
+import sudoku.control.SquareHandler;
 
 public abstract class Interface {
 
@@ -71,7 +72,7 @@ public abstract class Interface {
         square.setStroke(Color.gray(0) );
         square.setId(row + ";" + col); //Gives each square a unique ID
 
-        square.setOnMouseClicked(GameBoard::onClick); //TODO Move to different method?
+        square.setOnMouseClicked(SquareHandler::onClick); //TODO Move to different method?
 
         BOARD.add(square, col, row);
     }
@@ -107,6 +108,10 @@ public abstract class Interface {
 
         BOARD.add(value,col,row);
         return true;
+    }
+
+    public static void addToBoard(Node value, int col, int row) {
+        BOARD.add(value,col,row);
     }
 
     /**
