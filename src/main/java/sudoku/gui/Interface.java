@@ -65,7 +65,7 @@ public abstract class Interface {
      * @param col Column number where the square will be created
      */
 
-    public static void createSquare(int row, int col) { //TODO print numbers on the board
+    public static void createSquare(int row, int col) { //TODO Move to Square class?
         final int SIZE = 30;
         Rectangle square = new Rectangle(SIZE, SIZE, Color.gray(0.7) );
         square.setStroke(Color.gray(0) );

@@ -11,13 +11,13 @@ public class Board {
 
     private Block[][] board;
 
-    public Board() {
+    public Board(boolean generate) {
         board = new Block[3][3];
 
         //Creates i objects of 3x3 Squares
         for (int r = 0; r < board.length; r++) {
             for (int c = 0; c < board[r].length; c++) {
-                board[r][c] = new Block(true);
+                board[r][c] = new Block(generate);
             }
         }
     }
@@ -52,22 +52,33 @@ public class Board {
 
     public boolean completeHorizontal(int r) { //TODO Test
 
-        for (int i = 0; i < board[r].length; i++) {
-            if (board[r][i].completeHorizontal(r) != null) {
-                for (int j = 0; j < board[r].length; j++) {
-                    Square[] h1 = board[r][j].completeHorizontal(r);
-                    Square[] h2 = board[r][j+1].completeHorizontal(r);
-                    for (int h = 0; h < h1.length; h++) {
-                        for (int k = 0; k < h1.length; k++) {
-                            if (h1[h] != h2[k]) { //FIXME
+        boolean complete = true;
 
+        for (int i = 0; i < board[r].length; i++) {
+            if (board[r / 3][i].completeHorizontal(r) != null) {
+                for (int j = 0; j < board[r].length - 1; j++) {
+
+                    Square[] h1 = board[r][j].completeHorizontal(r);
+                    Square[] h2 = board[r][j + 1].completeHorizontal(r);
+
+                    //Compares the values in both arrays
+                    for (int h = 0; h < h1.length - 1; h++) {
+                        for (int k = h + 1; k < h1.length && !complete; k++) {
+                            if (h1[h] == h2[k]) {
+                                return false;
+                            }
+                            else {
+                                complete = true;
                             }
                         }
                     }
                 }
             }
+            else {
+                complete = false;
+            }
         }
-        return false;
+        return complete;
     }
 
     /**

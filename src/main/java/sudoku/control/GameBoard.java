@@ -6,6 +6,12 @@ import sudoku.gui.Interface;
 
 import static sudoku.board.Board.LEN_TOT;
 
+/**
+ * TODO Move label and connected values and methods to this file as attributes
+ * TODO Rename class to ...?
+ * TODO Constructor
+ */
+
 public class GameBoard {
 
     /**

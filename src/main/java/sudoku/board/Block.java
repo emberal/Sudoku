@@ -33,7 +33,7 @@ public class Block { //TODO Tests
                     squares[r][c] = new Square(generateNr() );
                 }
                 else {
-                    squares[r][c] = new Square(-1);
+                    squares[r][c] = new Square(0);
                 }
                 Interface.createSquare(r + rowNr, c + colNr);
                 Interface.updateValue(squares[r][c].getNr(), r + rowNr, c + colNr);
@@ -68,13 +68,13 @@ public class Block { //TODO Tests
      */
 
     public int generateNr() {
-        int nr = -1;
+        int nr = 0;
         Random r = new Random();
 
         if (r.nextBoolean() ) {
             nr = r.nextInt(LEN_TOT) + 1;
             if (exist(nr) ) {
-                nr = -1;
+                nr = 0;
             }
         }
         return nr;

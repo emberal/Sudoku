@@ -13,7 +13,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
-        Board board = new Board();
+        Board board = new Board(true);
         System.out.println(board);
 
         Interface.start(stage);
