@@ -5,6 +5,8 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import sudoku.board.Square;
 import sudoku.gui.Interface;
 
@@ -17,26 +19,52 @@ import static sudoku.board.Board.LEN_TOT;
 public class SquareHandler extends Square implements EventHandler<ActionEvent> { //TODO Check Interface
 
     private static final String S = "   ";
-    private Label value;
+    private static final int SQUARE_SIZE = 30;
 
-    public SquareHandler(int nr) { //TODO Constructor
+    private Rectangle square;
+    private Label value;
+    private int row, col;
+    private final String ID = row + ";" + col;
+
+    public SquareHandler(int nr, int row, int col) {
         super(nr);
+        initiateSquare();
         value = new Label(S + nr);
+        this.row = row;
+        this.col = col;
     }
 
-    public boolean updateValue(int v, int row, int col) {
+    /**
+     *
+     */
 
-        if (v > 9 || v < 0) {
+    public void initiateSquare() {
+        square = new Rectangle(SQUARE_SIZE, SQUARE_SIZE, Color.gray(0.7) );
+        square.setStroke(Color.gray(0) );
+        square.setOnMouseClicked(SquareHandler::onClick);
+
+        //BOARD.add(square, col, row); //TODO
+    }
+
+    /**
+     *
+     * @param nr The new value, must be 0-9
+     * @return - Returns false if the value is illegal, else return true
+     */
+
+    public boolean updateValue(int nr) {
+
+        if (nr > 9 || nr < 0) {
             return false;
         }
 
         String s = S;
 
-        if (v == 0) {
+        if (nr == 0) {
             s += " ";
         }
         else {
-            s += Integer.toString(v);
+            s += Integer.toString(nr);
         }
         value.setText(s);
 
@@ -48,8 +76,20 @@ public class SquareHandler extends Square implements EventHandler<ActionEvent> {
     }
 
     @Override
-    public void handle(ActionEvent actionEvent) {
+    public void handle(ActionEvent actionEvent) { //TODO
 
+    }
+
+    /**
+     *
+     * @param nr
+     */
+
+    @Override
+    public void setNr(int nr) {
+        if (updateValue(nr) ) {
+            super.setNr(nr);
+        }
     }
 
     /**
