@@ -24,8 +24,9 @@ public class Block { //TODO Tests
      * @param generate If true, generates random numbers
      */
 
-    public Block(boolean generate) {
+    public Block(boolean generate, int row, int col) {
         squares = new Square[LEN][LEN];
+        row *= LEN; col *= LEN;
 
         for (int r = 0; r < squares.length; r++) {
             for (int c = 0; c < squares[r].length; c++) {
@@ -35,28 +36,8 @@ public class Block { //TODO Tests
                 else {
                     squares[r][c] = new Square(0);
                 }
-                Interface.createSquare(r + rowNr, c + colNr);
-                Interface.updateValue(squares[r][c].getNr(), r + rowNr, c + colNr);
-                adjustPos(r, c); //Updates rowNr and colNr
-            }
-        }
-    }
-
-    /**
-     * Increases column by 3 for each block created
-     * Increases row by 3 if three blocks have been created, and resets column count
-     * @param row
-     * @param col
-     */
-
-    private static void adjustPos(int row, int col) { //TODO change to something better!!!
-        if (row % LEN == 2 && col % LEN == 2) {
-            if (colNr == LEN_TOT-LEN) {
-                rowNr += LEN;
-                colNr = 0;
-            }
-            else {
-                colNr += LEN;
+                Interface.createSquare(r + row, c + col);
+                Interface.updateValue(squares[r][c].getNr(), r + row, c + col);
             }
         }
     }
@@ -109,7 +90,7 @@ public class Block { //TODO Tests
 
         for (int r = 0; r < squares[n].length-1; r++) {
             for (int c = r+1; c < squares[n].length; c++) {
-                if (squares[n][r].getNr() == 0 || squares[n][r] == squares[n][c]) {
+                if (squares[n][r].getNr() == 0 || squares[n][r].getNr() == squares[n][c].getNr() ) {
                     return null;
                 }
                 horizontal[r] = squares[n][r];
@@ -130,7 +111,7 @@ public class Block { //TODO Tests
 
         for (int r = 0; r < squares[n].length-1; r++) {
             for (int c = r+1; c < squares[n].length; c++) {
-                if (squares[r][n].getNr() == 0 || squares[r][n] == squares[c][n]) {
+                if (squares[r][n].getNr() == 0 || squares[r][n].getNr() == squares[c][n].getNr() ) {
                     return null;
                 }
                 vertical[r] = squares[r][n];

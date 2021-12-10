@@ -17,7 +17,7 @@ public class Board {
         //Creates i objects of 3x3 Squares
         for (int r = 0; r < board.length; r++) {
             for (int c = 0; c < board[r].length; c++) {
-                board[r][c] = new Block(generate);
+                board[r][c] = new Block(generate, r, c);
             }
         }
     }

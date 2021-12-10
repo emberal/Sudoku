@@ -10,7 +10,7 @@ public class BlockTest { //TODO Tests
     Block block;
 
     private void setUp() {
-        block = new Block(false);
+        block = new Block(false, 0, 0);
     }
 
     private void fullBlock() {

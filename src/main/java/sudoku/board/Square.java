@@ -7,7 +7,7 @@ public class Square {
 
     public Square(int nr) {
 
-        if (nr < 0 || nr > 8) {
+        if (nr >= 1 && nr <= 9) {
             this.nr = nr;
             EDITABLE = false;
         }
