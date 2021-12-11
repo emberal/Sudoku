@@ -19,6 +19,10 @@ public class Square {
 
     @Override
     public String toString() {
+        return "Square={Nr=" + nr + ", Editable=" + EDITABLE + "}";
+    }
+
+    public String printSquare() {
         String stringNr;
 
         if (nr > 0) {

@@ -1,5 +1,6 @@
 package sudoku.board;
 
+import sudoku.control.SquareHandler;
 import sudoku.gui.Interface;
 
 import java.util.Random;
@@ -15,29 +16,23 @@ import static sudoku.board.Board.LEN_TOT;
 
 public class Block { //TODO Tests
 
-    private static int rowNr = 0, colNr = 0;
-
     private Square[][] squares;
 
     /**
      * Constructs a block with 9 squares, randomly generates a number
      * @param generate If true, generates random numbers
      */
-
     public Block(boolean generate, int row, int col) {
         squares = new Square[LEN][LEN];
         row *= LEN; col *= LEN;
 
         for (int r = 0; r < squares.length; r++) {
             for (int c = 0; c < squares[r].length; c++) {
+                int rowNr = r + row, colNr = c + col, nr = 0;
                 if (generate) {
-                    squares[r][c] = new Square(generateNr() );
+                    nr = generateNr();
                 }
-                else {
-                    squares[r][c] = new Square(0);
-                }
-                Interface.createSquare(r + row, c + col);
-                Interface.updateValue(squares[r][c].getNr(), r + row, c + col);
+                squares[r][c] = new SquareHandler(nr, rowNr, colNr);
             }
         }
     }
@@ -47,8 +42,7 @@ public class Block { //TODO Tests
      * If the number already exists in the block, the new number is tossed
      * @return int
      */
-
-    public int generateNr() {
+    public int generateNr() { //TODO also check all the number in each horizontal and verical direction!
         int nr = 0;
         Random r = new Random();
 
@@ -65,7 +59,6 @@ public class Block { //TODO Tests
      * Return true, if all numbers 1-9 are present
      * @return boolean
      */
-
     public boolean completeBlock() {
 
         boolean complete = true;
@@ -83,7 +76,6 @@ public class Block { //TODO Tests
      * @param n Index of the horizontal row
      * @return Square[] - Returns the array if all numbers are unique, else null
      */
-
     public Square[] completeHorizontal(int n) { //TODO Test
 
         Square[] horizontal = new Square[LEN];
@@ -104,7 +96,6 @@ public class Block { //TODO Tests
      * @param n Index of the vertical row
      * @return Square[] - Returns the array if all numbers are unique, else null
      */
-
     public Square[] completeVertical(int n) { //TODO Test
 
         Square[] vertical = new Square[LEN];
@@ -166,7 +157,7 @@ public class Block { //TODO Tests
 
         for (Square[] r : squares) {
             for (Square s : r) {
-                block.append(s);
+                block.append(s.printSquare() );
             }
             block.append("\n");
         }
