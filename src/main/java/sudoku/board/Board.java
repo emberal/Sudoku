@@ -1,9 +1,5 @@
 package sudoku.board;
 
-import sudoku.gui.Interface;
-
-import java.util.Arrays;
-
 public class Board {
 
     public static final int LEN = 3;
@@ -12,12 +8,12 @@ public class Board {
     private Block[][] board;
 
     public Board(boolean generate) {
-        board = new Block[3][3];
+        board = new Block[LEN][LEN];
 
         //Creates i objects of 3x3 Squares
         for (int r = 0; r < board.length; r++) {
             for (int c = 0; c < board[r].length; c++) {
-                board[r][c] = new Block(generate, r, c);
+                board[r][c] = new Block(generate, r, c, this);
             }
         }
     }

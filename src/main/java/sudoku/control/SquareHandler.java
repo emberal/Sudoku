@@ -1,19 +1,10 @@
 package sudoku.control;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.Label;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import sudoku.board.Square;
 import sudoku.gui.Interface;
 import sudoku.gui.SquareGUI;
-
-import java.util.EventListener;
-
-import static sudoku.board.Board.LEN_TOT;
 
 /**
  * TODO Move label and connected values and methods to this file as attributes
@@ -31,11 +22,11 @@ public class SquareHandler extends Square { //TODO Check Interface
         super(nr);
         this.row = row; this.col = col;
         square = new SquareGUI(row, col);
-        value = new Label(S + nr);
-        Interface.addToBoard(square.getSquare(), col, row);
+        value = new Label(S);
+        Interface.addToBoard(square.getSQUARE(), col, row);
         updateValue(nr);
         Interface.addToBoard(value, col, row);
-        square.getSquare().setOnMouseClicked(this::onClick);
+        square.getSQUARE().setOnMouseClicked(this::onClick);
     }
 
     @Override
@@ -98,7 +89,13 @@ public class SquareHandler extends Square { //TODO Check Interface
     public boolean onClick(MouseEvent e) { //TODO Remove event after button press, or escape button is pressed
         System.out.println(this);
         if (isEDITABLE() ) {
-            new KeyHandlerControl(this);
+            Interface.SCENE.setOnKeyPressed(key -> {
+
+                if (key.getCode().isDigitKey() ) {
+                    setNr(key.getText() );
+                }
+                key.consume();
+            });
         }
         return isEDITABLE();
     }

@@ -1,16 +1,19 @@
 package sudoku.board;
 
+import javafx.application.Application;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import sudoku.Main;
 
 import java.util.Arrays;
 
-public class BlockTest { //TODO Tests
+public class BlockTest extends BoardTest { //TODO Tests
 
     Block block;
 
     private void setUp() {
-        block = new Block(false, 0, 0);
+        Main.launch();
+        block = new Block(false, 0, 0, board);
     }
 
     private void fullBlock() {
@@ -80,10 +83,20 @@ public class BlockTest { //TODO Tests
     }
 
     @Test
+    void existHorizontallyTest() {
+
+    }
+
+    @Test
+    void existVerticallyTest() {
+
+    }
+
+    @Test
     void existTest() {
         setUp();
 
-        block.setSquares(new Square[][] {{new Square(1), new Square(2)}});
+        block.setSquares(new Square[][] { {new Square(1), new Square(2)} });
 
         System.out.println(block);
 

@@ -1,12 +1,13 @@
 package sudoku.board;
 
+import javafx.application.Application;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static sudoku.board.Board.LEN;
 import static sudoku.board.Board.LEN_TOT;
 
-public class BoardTest {
+public class BoardTest extends JavaFXTest {
 
     Board board;
 

@@ -7,16 +7,16 @@ public class SquareGUI extends Rectangle {
 
     private static final int SQUARE_SIZE = 30;
 
+    private final Rectangle SQUARE;
+    private final String ID;
     private Color background = Color.gray(0.7);
     private Color border = Color.gray(0);
-    private Rectangle square;
-    private final String ID;
 
     public SquareGUI(int row, int col) {
-        square = new Rectangle(SQUARE_SIZE, SQUARE_SIZE, background);
+        SQUARE = new Rectangle(SQUARE_SIZE, SQUARE_SIZE, background);
         ID = row + ";" + col;
-        square.setId(ID);
-        square.setStroke(border); //TODO Thicker border between each block
+        SQUARE.setId(ID);
+        SQUARE.setStroke(border); //TODO Thicker border between each block
     }
 
     @Override
@@ -27,8 +27,8 @@ public class SquareGUI extends Rectangle {
                 ", Border colour=" + border + "]";
     }
 
-    public Rectangle getSquare() {
-        return square;
+    public Rectangle getSQUARE() {
+        return SQUARE;
     }
 
     public String getID() {
