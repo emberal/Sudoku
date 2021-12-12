@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import static sudoku.board.Board.LEN;
 import static sudoku.board.Board.LEN_TOT;
 
-public class BoardTest extends JavaFXTest {
+public class BoardTest {
 
     Board board;
 
