@@ -58,7 +58,7 @@ public class Board {
                     Square[] h2 = board[r][j + 1].completeHorizontal(r);
 
                     //Compares the values in both arrays
-                    for (int h = 0; h < h1.length - 1; h++) {
+                    for (int h = 0; h < h1.length - 1; h++) { //FIXME Not working!
                         for (int k = h + 1; k < h1.length && !complete; k++) {
                             if (h1[h] == h2[k]) {
                                 return false;
@@ -88,6 +88,10 @@ public class Board {
 
     public Block[][] getBoard() {
         return board;
+    }
+
+    public void setBoard(Block[][] board) {
+        this.board = board;
     }
 
     @Override

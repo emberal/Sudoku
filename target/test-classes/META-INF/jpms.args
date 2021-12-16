@@ -1,0 +1,4 @@
+--patch-module
+sudoku.board=_
+--add-reads
+sudoku.board=ALL-UNNAMED

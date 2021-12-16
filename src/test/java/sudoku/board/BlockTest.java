@@ -1,19 +1,31 @@
 package sudoku.board;
 
+import JavaFX.JavaFXThreadingRule;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.stage.Stage;
+import org.junit.Rule;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import sudoku.Main;
 
 import java.util.Arrays;
 
-public class BlockTest extends BoardTest { //TODO Tests
+import static sudoku.board.Board.LEN;
+
+public class BlockTest extends Application { //TODO Tests
 
     Block block;
 
+    @Rule
+    public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
+
+    private void javaFxSetup() {
+        Platform.startup( () -> {});
+    }
+
     private void setUp() {
-        Main.launch();
-        block = new Block(false, 0, 0, board);
+        javaFxSetup();
+        block = new Block(false, 0, 0, new Board(false));
     }
 
     private void fullBlock() {
@@ -84,24 +96,46 @@ public class BlockTest extends BoardTest { //TODO Tests
 
     @Test
     void existHorizontallyTest() {
+        fullBlock();
+        System.out.println(block);
 
+        Assertions.assertFalse(block.existHorizontally(1,1) );
+
+        for (int r = 0; r < LEN; r++) {
+            for (int i = r * LEN + 1; i % LEN > 0; i++) {
+                Assertions.assertTrue(block.existHorizontally(i, r) );
+            }
+        }
     }
 
     @Test
     void existVerticallyTest() {
+        fullBlock();
+        System.out.println(block);
 
+        Assertions.assertFalse(block.existVertically(1,1) );
+
+        for (int c = 0; c < LEN; c++) {
+            for (int i = c + 1; i < c + 8; i += LEN) {
+                Assertions.assertTrue(block.existVertically(i, c) );
+            }
+        }
     }
 
     @Test
     void existTest() {
-        setUp();
-
-        block.setSquares(new Square[][] { {new Square(1), new Square(2)} });
-
+        fullBlock();
         System.out.println(block);
 
-        Assertions.assertTrue(block.exist(2) );
-        Assertions.assertFalse(block.exist(3));
+        for (int i = 1; i <= 9; i++) {
+            Assertions.assertTrue(block.exist(i) );
+        }
+        block.getSquares()[2][0].setNr(0);
+        Assertions.assertFalse(block.exist(7) );
     }
 
+    @Override
+    public void start(Stage stage) throws Exception {
+
+    }
 }

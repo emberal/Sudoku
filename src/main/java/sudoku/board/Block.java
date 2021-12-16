@@ -146,8 +146,8 @@ public class Block { //TODO Tests
      */
     public boolean existVertically(int nr, int col) { //TODO Test
 
-        for (int i = 0; i < squares.length; i++) {
-            if (squares[i][col].getNr() == nr) {
+        for (Square[] square : squares) {
+            if (square[col].getNr() == nr) {
                 return true;
             }
         }

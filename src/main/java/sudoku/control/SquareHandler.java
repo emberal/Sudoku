@@ -37,6 +37,16 @@ public class SquareHandler extends Square { //TODO Check Interface
                 ", col=" + col + '}';
     }
 
+    @Override
+    public String printSquare() {
+        String s = "";
+        if (col % 3 == 0) {
+            s += row + " ";
+        }
+
+        return s + super.printSquare();
+    }
+
     /**
      *
      * @param nr The new value, must be 0-9
@@ -79,6 +89,10 @@ public class SquareHandler extends Square { //TODO Check Interface
         if (n > -1) {
             setNr(n);
         }
+    }
+
+    public Label getValue() {
+        return value;
     }
 
     /**
