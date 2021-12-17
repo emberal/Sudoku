@@ -102,7 +102,7 @@ public class SquareHandler extends Square { //TODO Check Interface
      */
     public boolean onClick(MouseEvent e) { //TODO Remove event after button press, or escape button is pressed
         System.out.println(this);
-        if (isEDITABLE() ) {
+        if (isEditable() ) {
             Interface.SCENE.setOnKeyPressed(key -> {
 
                 if (key.getCode().isDigitKey() ) {
@@ -111,7 +111,7 @@ public class SquareHandler extends Square { //TODO Check Interface
                 key.consume();
             });
         }
-        return isEDITABLE();
+        return isEditable();
     }
 
 }

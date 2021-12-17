@@ -49,24 +49,29 @@ public class Board {
     public boolean completeHorizontal(int r) { //TODO Test
 
         boolean complete = true;
+        int bRow = r / LEN, sRow = r % LEN;
 
-        for (int i = 0; i < board[r].length; i++) {
-            if (board[r / 3][i].completeHorizontal(r) != null) {
-                for (int j = 0; j < board[r].length - 1; j++) {
+        for (int i = 0; i < board[bRow].length; i++) {
+            if (board[bRow][i].completeHorizontal(sRow) != null) {
+                for (int j = 0; j < board[bRow].length - 1; j++) {
 
-                    Square[] h1 = board[r][j].completeHorizontal(r);
-                    Square[] h2 = board[r][j + 1].completeHorizontal(r);
-
-                    //Compares the values in both arrays
-                    for (int h = 0; h < h1.length - 1; h++) { //FIXME Not working!
-                        for (int k = h + 1; k < h1.length && !complete; k++) {
-                            if (h1[h] == h2[k]) {
-                                return false;
-                            }
-                            else {
-                                complete = true;
+                    Square[] h1 = board[bRow][j].completeHorizontal(sRow);
+                    Square[] h2 = board[bRow][j + 1].completeHorizontal(sRow);
+                    if (!(h1 == null || h2 == null)) {
+                        //Compares the values in both arrays
+                        for (int h = 0; h < h1.length - 1; h++) {
+                            for (int k = h + 1; k < h1.length && !complete; k++) {
+                                if (h1[h] == h2[k]) {
+                                    return false;
+                                }
+                                else {
+                                    complete = true;
+                                }
                             }
                         }
+                    }
+                    else {
+                        return false;
                     }
                 }
             }
@@ -96,14 +101,23 @@ public class Board {
 
     @Override
     public String toString() {
-        StringBuilder all = new StringBuilder();
+        StringBuilder str = new StringBuilder();
 
         for (Block[] r : board) {
             for (Block b : r) {
-                all.append(b);
+
+                for (Square[] sr : b.getSquares() ) {
+                    for (Square s : sr) {
+                        str.append(s.printSquare() );
+                    }
+                    str.append(" ");
+                }
+                str.append("\n");
             }
-            //all.append("\n");
+            str.append("\n");
         }
-        return all.toString();
+
+        return str.toString();
     }
+
 }

@@ -6,7 +6,7 @@ import javafx.application.Platform;
 import javafx.stage.Stage;
 import org.junit.Rule;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import sudoku.control.SquareHandler;
 
@@ -16,14 +16,13 @@ public class SquareHandlerTest extends Application {
 
     @Rule public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
 
-    @BeforeEach
-    private void setUp() {
-        Platform.startup(new Runnable() {
-            @Override
-            public void run() {
+    @BeforeAll
+    private static void javaFxSetup() {
+        Platform.startup( () -> {});
+    }
 
-            }
-        });
+    private void setUp() {
+
     }
 
     @Test
@@ -37,7 +36,7 @@ public class SquareHandlerTest extends Application {
         Assertions.assertEquals(2, square.getNr() );
 
         //boolean EDITABLE
-        Assertions.assertTrue(square.isEDITABLE() );
+        Assertions.assertTrue(square.isEditable() );
 
         //Label value
         Assertions.assertEquals("   " + square.getNr(), square.getValue().getText() );

@@ -4,14 +4,15 @@ import JavaFX.JavaFXThreadingRule;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import sudoku.control.SquareHandler;
 
 import static sudoku.board.Board.LEN;
+import static sudoku.board.Board.LEN_TOT;
 
 public class BoardTest extends Application {
 
@@ -19,52 +20,92 @@ public class BoardTest extends Application {
 
     @Rule public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
 
-    private void javaFxSetup() {
+    @BeforeAll
+    public static void javaFxSetup() {
         Platform.startup( () -> {});
     }
 
     private void setUp() {
-        javaFxSetup();
         board = new Board(false);
     }
 
-    public void fullBoard() { //TODO Setup board so the game is complete!
+    public void fullBoard() { //TODO change to series of loops...
         setUp();
 
-        board.setBoard(new Block[][]{
-                {new Block(false,0,0, board), new Block(false,0,1, board), new Block(false,0,2, board)},
-                {new Block(false,1,0, board), new Block(false,1,1, board), new Block(false,1,2, board)},
-                {new Block(false,2,0, board), new Block(false,2,1, board), new Block(false,2,2, board)} });
+        board.getBoard()[0][0].setSquares(new Square[][]{
+                {new Square(1),new Square(2),new Square(3)},
+                {new Square(4),new Square(5),new Square(6)},
+                {new Square(7),new Square(8),new Square(9)} });
+        board.getBoard()[0][1].setSquares(new Square[][]{
+                {new Square(7),new Square(8),new Square(9)},
+                {new Square(1),new Square(2),new Square(3)},
+                {new Square(4),new Square(5),new Square(6)} });
+        board.getBoard()[0][2].setSquares(new Square[][]{
+                {new Square(4),new Square(5),new Square(6)},
+                {new Square(7),new Square(8),new Square(9)},
+                {new Square(1),new Square(2),new Square(3)} });
 
-        for (Block[] r : board.getBoard()) {
-            for (Block c : r) {
-                int i = 1;
+        board.getBoard()[1][0].setSquares(new Square[][]{
+                {new Square(3),new Square(1),new Square(2)},
+                {new Square(6),new Square(4),new Square(5)},
+                {new Square(9),new Square(7),new Square(8)} });
+        board.getBoard()[1][1].setSquares(new Square[][]{
+                {new Square(9),new Square(7),new Square(8)},
+                {new Square(3),new Square(1),new Square(2)},
+                {new Square(6),new Square(4),new Square(5)} });
+        board.getBoard()[1][2].setSquares(new Square[][]{
+                {new Square(6),new Square(4),new Square(5)},
+                {new Square(9),new Square(7),new Square(8)},
+                {new Square(3),new Square(1),new Square(2)} });
 
-                for (int j = 0; j < LEN; j++) {
-                    for (int k = 0; k < LEN; k++) {
-                        c.getSquares()[j][k].setNr(i);
-                        i++;
-                    }
-                }
-            }
-        }
+        board.getBoard()[2][0].setSquares(new Square[][]{
+                {new Square(2),new Square(3),new Square(1)},
+                {new Square(5),new Square(6),new Square(4)},
+                {new Square(8),new Square(9),new Square(7)} });
+        board.getBoard()[2][1].setSquares(new Square[][]{
+                {new Square(8),new Square(9),new Square(7)},
+                {new Square(2),new Square(3),new Square(1)},
+                {new Square(5),new Square(6),new Square(4)} });
+        board.getBoard()[2][2].setSquares(new Square[][]{
+                {new Square(5),new Square(6),new Square(4)},
+                {new Square(8),new Square(9),new Square(7)},
+                {new Square(2),new Square(3),new Square(1)} });
+
+        System.out.println(board);
+    }
+
+    @Test
+    void toStringTest() {
+        fullBoard();
         System.out.println(board);
     }
 
     @Test
     void isFinished() { //TODO
+        fullBoard();
 
+        Assertions.assertTrue(board.isFinished() );
     }
 
     @Test
     void completeHorizontalTest() { //TODO Test
         fullBoard();
+
+        for (int i = 0; i < LEN_TOT; i++) {
+            Assertions.assertTrue(board.completeHorizontal(i) );
+        }
+
+        for (int j = 0; j < LEN; j++) {
+            for (int i = 0; i < LEN; i++) {
+                board.getBoard()[j][i].getSquares()[j][i].setEditable(true);
+                board.getBoard()[j][i].getSquares()[j][i].setNr(0);
+            }
+        }
         System.out.println(board);
-        Assertions.assertTrue(board.completeHorizontal(1));
-        Assertions.assertTrue(
-                board.getBoard()[0][0].existHorizontally(1, 1) ||
-                board.getBoard()[0][1].existHorizontally(1, 1) ||
-                board.getBoard()[0][2].existHorizontally(1, 1) );
+
+        for (int i = 0; i < LEN_TOT; i++) {
+            Assertions.assertFalse(board.completeHorizontal(i) );
+        }
     }
 
     @Test

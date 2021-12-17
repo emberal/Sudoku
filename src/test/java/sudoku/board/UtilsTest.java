@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static sudoku.board.Board.LEN_TOT;
 import static sudoku.board.Utils.existHorizontally;
 import static sudoku.board.Utils.existVertically;
 
@@ -18,15 +19,21 @@ public class UtilsTest extends BoardTest {
     void existHorizontallyTest() {
         fullBoard();
 
-        Assertions.assertTrue(existHorizontally(board, 6, 1) );
-        Assertions.assertFalse(existHorizontally(board, 5, 2) );
+        for (int r = 0; r < LEN_TOT; r++) {
+            for (int i = 1; i <= 9; i++) {
+                Assertions.assertTrue(existHorizontally(board, i, r) );
+            }
+        }
     }
 
     @Test
     void existVerticallyTest() {
         fullBoard();
 
-        Assertions.assertTrue(existVertically(board, 4, 3) );
-        Assertions.assertFalse(existVertically(board, 7, 5) );
+        for (int v = 0; v < LEN_TOT; v++) {
+            for (int i = 1; i <= 9; i++) {
+                Assertions.assertTrue(existVertically(board, i, v) );
+            }
+        }
     }
 }

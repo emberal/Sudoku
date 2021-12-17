@@ -81,7 +81,7 @@ public class Block { //TODO Tests
 
         for (int r = 0; r < squares[n].length-1; r++) {
             for (int c = r+1; c < squares[n].length; c++) {
-                if (squares[n][r].getNr() == 0 || squares[n][r].getNr() == squares[n][c].getNr() ) {
+                if (existHorizontally(0, n) || squares[n][r].getNr() == squares[n][c].getNr() ) {
                     return null;
                 }
                 horizontal[r] = squares[n][r];
@@ -101,7 +101,7 @@ public class Block { //TODO Tests
 
         for (int r = 0; r < squares[n].length-1; r++) {
             for (int c = r+1; c < squares[n].length; c++) {
-                if (squares[r][n].getNr() == 0 || squares[r][n].getNr() == squares[c][n].getNr() ) {
+                if (existVertically(0, n) || squares[r][n].getNr() == squares[c][n].getNr() ) {
                     return null;
                 }
                 vertical[r] = squares[r][n];

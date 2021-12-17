@@ -6,9 +6,8 @@ import javafx.application.Platform;
 import javafx.stage.Stage;
 import org.junit.Rule;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-
-import java.util.Arrays;
 
 import static sudoku.board.Board.LEN;
 
@@ -16,15 +15,14 @@ public class BlockTest extends Application { //TODO Tests
 
     Block block;
 
-    @Rule
-    public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
+    @Rule public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
 
-    private void javaFxSetup() {
+    @BeforeAll
+    private static void javaFxSetup() {
         Platform.startup( () -> {});
     }
 
     private void setUp() {
-        javaFxSetup();
         block = new Block(false, 0, 0, new Board(false));
     }
 
@@ -38,11 +36,11 @@ public class BlockTest extends Application { //TODO Tests
                 i++;
             }
         }
+        System.out.println(block);
     }
 
     @Test
     void completeBlockTest() {
-        setUp();
         fullBlock();
 
         System.out.println(block);
@@ -51,41 +49,40 @@ public class BlockTest extends Application { //TODO Tests
 
     @Test
     void completeHorizontalTest() { //TODO Test
-        setUp();
-
-        block.getSquares()[0][1].setNr(2);
-        block.getSquares()[0][2].setNr(3);
-
-        Square[] squares = block.completeHorizontal(0);
-        System.out.println(Arrays.toString(squares) );
-        Assertions.assertNull(squares);
 
         fullBlock();
-        squares = block.completeHorizontal(0);
-        System.out.println(Arrays.toString(squares) );
-        Assertions.assertNotNull(squares);
 
-        block.getSquares()[0][1].setNr(0);
-        block.getSquares()[1][1].setNr(0);
-        block.getSquares()[2][1].setNr(0);
+        for (int i = 0; i < LEN; i++) {
+            Assertions.assertNotNull(block.completeHorizontal(i) );
+        }
 
-        squares = block.completeHorizontal(0);
-        System.out.println(Arrays.toString(squares));
-        Assertions.assertNull(squares);
+        for (int i = 0; i < LEN; i++) {
+            block.getSquares()[i][i].setNr(0);
+        }
+        System.out.println(block);
+
+        for (int i = 0; i < LEN; i++) {
+            Assertions.assertNull(block.completeHorizontal(i) );
+        }
     }
 
     @Test
     void completeVerticalTest() { //TODO Test
-        setUp();
-
-        Square[] squares = block.completeVertical(0);
-        System.out.println(Arrays.toString(squares) );
-        Assertions.assertNull(squares);
 
         fullBlock();
-        squares = block.completeVertical(0);
-        System.out.println(Arrays.toString(squares) );
-        Assertions.assertNotNull(squares);
+
+        for (int i = 0; i < LEN; i++) {
+            Assertions.assertNotNull(block.completeVertical(i) );
+        }
+
+        for (int i = 0; i < LEN; i++) {
+            block.getSquares()[i][i].setNr(0);
+        }
+        System.out.println(block);
+
+        for (int i = 0; i < LEN; i++) {
+            Assertions.assertNull(block.completeVertical(i) );
+        }
     }
 
     @Test

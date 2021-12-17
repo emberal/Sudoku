@@ -3,23 +3,23 @@ package sudoku.board;
 public class Square {
 
     private int nr;
-    private final boolean EDITABLE; //Numbers set by the game, should not be editable by the player
+    private boolean editable; //Numbers set by the game, should not be editable by the player
 
     public Square(int nr) {
 
         if (nr >= 1 && nr <= 9) {
             this.nr = nr;
-            EDITABLE = false;
+            editable = false;
         }
         else {
-            EDITABLE = true;
+            editable = true;
         }
         //TODO place random numbers on the board, 2 - 5 (various difficulty?)
     }
 
     @Override
     public String toString() {
-        return "Square={Nr=" + nr + ", Editable=" + EDITABLE + "}";
+        return "Square={Nr=" + nr + ", Editable=" + editable + "}";
     }
 
     public String printSquare() {
@@ -36,7 +36,7 @@ public class Square {
     }
 
     public void setNr(int nr) {
-        if (EDITABLE) {
+        if (editable) {
             this.nr = nr; //TODO call method to change value on label
         }
         else {
@@ -48,7 +48,11 @@ public class Square {
         return nr;
     }
 
-    public boolean isEDITABLE() {
-        return EDITABLE;
+    public boolean isEditable() {
+        return editable;
+    }
+
+    public void setEditable(boolean editable) {
+        this.editable = editable;
     }
 }
