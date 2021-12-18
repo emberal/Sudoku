@@ -79,12 +79,14 @@ public class Block { //TODO Tests
 
         Square[] horizontal = new Square[LEN];
 
+        int count = 0;
         for (int r = 0; r < squares[n].length-1; r++) {
             for (int c = r+1; c < squares[n].length; c++) {
                 if (existHorizontally(0, n) || squares[n][r].getNr() == squares[n][c].getNr() ) {
                     return null;
                 }
-                horizontal[r] = squares[n][r];
+                horizontal[count] = squares[n][count];
+                count++;
             }
         }
         return horizontal;
@@ -99,12 +101,14 @@ public class Block { //TODO Tests
 
         Square[] vertical = new Square[LEN];
 
+        int count = 0;
         for (int r = 0; r < squares[n].length-1; r++) {
             for (int c = r+1; c < squares[n].length; c++) {
                 if (existVertically(0, n) || squares[r][n].getNr() == squares[c][n].getNr() ) {
                     return null;
                 }
-                vertical[r] = squares[r][n];
+                vertical[count] = squares[count][n];
+                count++;
             }
         }
         return vertical;

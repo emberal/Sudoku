@@ -46,9 +46,8 @@ public class Board {
      * @return boolean - Returns true if all the numbers in a horizontal line are unique
      */
 
-    public boolean completeHorizontal(int r) { //TODO Test
+    public boolean completeHorizontal(int r) {
 
-        boolean complete = true;
         int bRow = r / LEN, sRow = r % LEN;
 
         for (int i = 0; i < board[bRow].length; i++) {
@@ -57,15 +56,13 @@ public class Board {
 
                     Square[] h1 = board[bRow][j].completeHorizontal(sRow);
                     Square[] h2 = board[bRow][j + 1].completeHorizontal(sRow);
-                    if (!(h1 == null || h2 == null)) {
+                    if (!(h1 == null || h2 == null) ) {
+
                         //Compares the values in both arrays
                         for (int h = 0; h < h1.length - 1; h++) {
-                            for (int k = h + 1; k < h1.length && !complete; k++) {
+                            for (int k = h + 1; k < h1.length; k++) {
                                 if (h1[h] == h2[k]) {
                                     return false;
-                                }
-                                else {
-                                    complete = true;
                                 }
                             }
                         }
@@ -76,10 +73,10 @@ public class Board {
                 }
             }
             else {
-                complete = false;
+                return false;
             }
         }
-        return complete;
+        return true;
     }
 
     /**
@@ -87,8 +84,37 @@ public class Board {
      * @return boolean - Returns true if all the numbers in a vertical line are unique
      */
 
-    public boolean completeVertical(int n) { //TODO
-        return false;
+    public boolean completeVertical(int v) {
+
+        int bVer = v / LEN, sVer = v % LEN;
+
+        for (int i = 0; i < board[bVer].length; i++) {
+            if (board[bVer][i].completeVertical(sVer) != null) {
+                for (int j = 0; j < board[bVer].length - 1; j++) {
+
+                    Square[] h1 = board[j][bVer].completeVertical(sVer);
+                    Square[] h2 = board[j + 1][bVer].completeVertical(sVer);
+                    if (!(h1 == null || h2 == null) ) {
+
+                        //Compares the values in both arrays
+                        for (int h = 0; h < h1.length - 1; h++) {
+                            for (int k = h + 1; k < h1.length; k++) {
+                                if (h1[h] == h2[k]) {
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                    else {
+                        return false;
+                    }
+                }
+            }
+            else {
+                return false;
+            }
+        }
+        return true;
     }
 
     public Block[][] getBoard() {
@@ -104,11 +130,11 @@ public class Board {
         StringBuilder str = new StringBuilder();
 
         for (Block[] r : board) {
-            for (Block b : r) {
+            for (int b = 0; b < board.length; b++) {
 
-                for (Square[] sr : b.getSquares() ) {
-                    for (Square s : sr) {
-                        str.append(s.printSquare() );
+                for (Block block : r) {
+                    for (int s = 0; s < board.length; s++) {
+                        str.append(block.getSquares()[b][s].printSquare() );
                     }
                     str.append(" ");
                 }

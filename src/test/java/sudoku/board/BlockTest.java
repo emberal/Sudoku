@@ -48,12 +48,17 @@ public class BlockTest extends Application { //TODO Tests
     }
 
     @Test
-    void completeHorizontalTest() { //TODO Test
+    void completeHorizontalTest() {
 
         fullBlock();
 
         for (int i = 0; i < LEN; i++) {
-            Assertions.assertNotNull(block.completeHorizontal(i) );
+            Square[] hor = block.completeHorizontal(i);
+            Assertions.assertNotNull(hor);
+            for (int j = 0; j < LEN; j++) {
+                Assertions.assertTrue(hor[j].getNr() != 0);
+                Assertions.assertEquals(j+1 + i*3, hor[j].getNr() );
+            }
         }
 
         for (int i = 0; i < LEN; i++) {
@@ -62,17 +67,23 @@ public class BlockTest extends Application { //TODO Tests
         System.out.println(block);
 
         for (int i = 0; i < LEN; i++) {
-            Assertions.assertNull(block.completeHorizontal(i) );
+            Square[] hor = block.completeHorizontal(i);
+            Assertions.assertNull(hor);
         }
     }
 
     @Test
-    void completeVerticalTest() { //TODO Test
+    void completeVerticalTest() {
 
         fullBlock();
 
         for (int i = 0; i < LEN; i++) {
-            Assertions.assertNotNull(block.completeVertical(i) );
+            Square[] ver = block.completeVertical(i);
+            Assertions.assertNotNull(ver);
+            for (int j = 0; j < LEN; j++) {
+                Assertions.assertTrue(ver[j].getNr() != 0);
+                Assertions.assertEquals(j*3+1+i, ver[j].getNr() );
+            }
         }
 
         for (int i = 0; i < LEN; i++) {
@@ -81,7 +92,8 @@ public class BlockTest extends Application { //TODO Tests
         System.out.println(block);
 
         for (int i = 0; i < LEN; i++) {
-            Assertions.assertNull(block.completeVertical(i) );
+            Square[] hor = block.completeVertical(i);
+            Assertions.assertNull(hor);
         }
     }
 

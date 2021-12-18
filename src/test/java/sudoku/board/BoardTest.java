@@ -97,8 +97,8 @@ public class BoardTest extends Application {
 
         for (int j = 0; j < LEN; j++) {
             for (int i = 0; i < LEN; i++) {
-                board.getBoard()[j][i].getSquares()[j][i].setEditable(true);
-                board.getBoard()[j][i].getSquares()[j][i].setNr(0);
+                board.getBoard()[j][i].getSquares()[i][j].setEditable(true);
+                board.getBoard()[j][i].getSquares()[i][j].setNr(0);
             }
         }
         System.out.println(board);
@@ -110,7 +110,23 @@ public class BoardTest extends Application {
 
     @Test
     void completeVerticalTest() { //TODO
+        fullBoard();
 
+        for (int i = 0; i < LEN_TOT; i++) {
+            Assertions.assertTrue(board.completeVertical(i) );
+        }
+
+        for (int j = 0; j < LEN; j++) {
+            for (int i = 0; i < LEN; i++) {
+                board.getBoard()[j][i].getSquares()[i][j].setEditable(true);
+                board.getBoard()[j][i].getSquares()[i][j].setNr(0);
+            }
+        }
+        System.out.println(board);
+
+        for (int i = 0; i < LEN_TOT; i++) {
+            Assertions.assertFalse(board.completeVertical(i) );
+        }
     }
 
     @Override
