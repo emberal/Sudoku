@@ -2,25 +2,30 @@ package sudoku.control;
 
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import sudoku.board.Board;
 import sudoku.board.Square;
 import sudoku.gui.Interface;
 import sudoku.gui.SquareGUI;
+
+import static sudoku.board.Board.LEN;
 
 /**
  * TODO Move label and connected values and methods to this file as attributes
  */
 
-public class SquareHandler extends Square { //TODO Check Interface
+public class SquareHandler extends Square {
 
     private static final String S = "   ";
 
     private SquareGUI square;
     private Label value; //TODO set different colour to the numbers placed by the game
     private int row, col;
+    private Board board;
 
-    public SquareHandler(int nr, int row, int col) {
+    public SquareHandler(int nr, int row, int col, Board board) {
         super(nr);
         this.row = row; this.col = col;
+        this.board = board;
         square = new SquareGUI(row, col);
         value = new Label(S);
         Interface.addToBoard(square.getSQUARE(), col, row);
@@ -70,9 +75,28 @@ public class SquareHandler extends Square { //TODO Check Interface
         return true;
     }
 
+    private void checkSquares(int nr) {
+        if (board.completeHorizontal(row)) {
+            //Highlight row green
+        }
+        if (board.completeVertical(col)) {
+            //Highlight column green
+        }
+        if (board.getBoard()[row/LEN][col/LEN].completeBlock()) {
+            //Highlight block green
+        }
+        if (board.existHorizonally(nr, row)) {
+            //Mark dupelicates with red font
+        }
+        if (board.existVertically(nr, col)) {
+            //Mark dupelicates with red font
+        }
+    }
+
     @Override
     public void setNr(int nr) {
         if (updateValue(nr) ) {
+            checkSquares(nr);
             super.setNr(nr);
         }
     }

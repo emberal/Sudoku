@@ -5,6 +5,7 @@ import static sudoku.board.Board.LEN_TOT;
 
 public abstract class Utils {
 
+    @Deprecated
     public static boolean existHorizontally(Board board, int nr, int row) {
 
         for (int i = 0; i < LEN; i++) {
@@ -15,6 +16,7 @@ public abstract class Utils {
         return false;
     }
 
+    @Deprecated
     public static boolean existVertically(Board board, int nr, int col) {
 
         for (int i = 0; i < LEN; i++) {

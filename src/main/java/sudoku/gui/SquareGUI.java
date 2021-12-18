@@ -16,7 +16,8 @@ public class SquareGUI extends Rectangle {
         SQUARE = new Rectangle(SQUARE_SIZE, SQUARE_SIZE, background);
         ID = row + ";" + col;
         SQUARE.setId(ID);
-        SQUARE.setStroke(border); //TODO Thicker border between each block
+        SQUARE.setStroke(border);
+        SQUARE.setStrokeWidth(1.0); //TODO Thicker border between each block
     }
 
     @Override

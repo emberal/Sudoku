@@ -23,7 +23,7 @@ public class Board {
      * @return boolean - Returns true if the board is complete
      */
 
-    public boolean isFinished() { //TODO Test
+    public boolean isFinished() {
 
         boolean finished = true;
 
@@ -117,12 +117,36 @@ public class Board {
         return true;
     }
 
-    public Block[][] getBoard() {
-        return board;
+    /**
+     *
+     * @param nr
+     * @param row
+     * @return
+     */
+    public boolean existHorizonally(int nr, int row) { //TODO Test
+
+        for (Block b : board[row / LEN]) {
+            if (b.existHorizontally(nr, row % LEN)) {
+                return true;
+            }
+        }
+        return false;
     }
 
-    public void setBoard(Block[][] board) {
-        this.board = board;
+    /**
+     *
+     * @param nr
+     * @param col
+     * @return
+     */
+    public boolean existVertically(int nr, int col) { //TODO Test
+
+        for (Block[] b : board) {
+            if (b[col / LEN].existVertically(nr, col % LEN)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -144,6 +168,14 @@ public class Board {
         }
 
         return str.toString();
+    }
+
+    public Block[][] getBoard() {
+        return board;
+    }
+
+    public void setBoard(Block[][] board) {
+        this.board = board;
     }
 
 }

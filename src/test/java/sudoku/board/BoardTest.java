@@ -81,10 +81,15 @@ public class BoardTest extends Application {
     }
 
     @Test
-    void isFinished() { //TODO
+    void isFinished() {
         fullBoard();
 
         Assertions.assertTrue(board.isFinished() );
+
+        board.getBoard()[2][2].getSquares()[1][1].setEditable(true);
+        board.getBoard()[2][2].getSquares()[1][1].setNr(0);
+
+        Assertions.assertFalse(board.isFinished() );
     }
 
     @Test

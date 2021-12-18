@@ -31,7 +31,7 @@ public class Block { //TODO Tests
                 if (generate) {
                     nr = generateNr(rowNr, colNr, board);
                 }
-                squares[r][c] = new SquareHandler(nr, rowNr, colNr);
+                squares[r][c] = new SquareHandler(nr, rowNr, colNr, board);
             }
         }
     }
@@ -132,7 +132,7 @@ public class Block { //TODO Tests
      * @param row Which row to be checked {0, 1, 2}
      * @return - True if the number exists int the row
      */
-    public boolean existHorizontally(int nr, int row) { //TODO Test
+    public boolean existHorizontally(int nr, int row) {
 
         for (Square s : squares[row]) {
             if (s.getNr() == nr) {
@@ -148,7 +148,7 @@ public class Block { //TODO Tests
      * @param col Which column to be checked {0, 1, 2}
      * @return - True if the number exists int the column
      */
-    public boolean existVertically(int nr, int col) { //TODO Test
+    public boolean existVertically(int nr, int col) {
 
         for (Square[] square : squares) {
             if (square[col].getNr() == nr) {

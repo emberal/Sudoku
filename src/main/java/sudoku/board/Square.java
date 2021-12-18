@@ -37,7 +37,7 @@ public class Square {
 
     public void setNr(int nr) {
         if (editable) {
-            this.nr = nr; //TODO call method to change value on label
+            this.nr = nr;
         }
         else {
             System.out.println("Not editable!");

@@ -27,7 +27,7 @@ public class SquareHandlerTest extends Application {
 
     @Test
     void SquareHandlerTest() {
-        square = new SquareHandler(0, 0, 0);
+        square = new SquareHandler(0, 0, 0, new Board(false) );
 
         //int nr
         Assertions.assertNotNull(square);
