@@ -13,16 +13,16 @@ import static sudoku.board.Board.LEN_TOT;
  * Should check if all the numbers in the block, are unique
  */
 
-public class Block { //TODO Tests
+public class Block {
 
-    private Square[][] squares;
+    private SquareHandler[][] squares;
 
     /**
      * Constructs a block with 9 squares, randomly generates a number
      * @param generate If true, generates random numbers
      */
     public Block(boolean generate, int row, int col, Board board) {
-        squares = new Square[LEN][LEN];
+        squares = new SquareHandler[LEN][LEN];
         row *= LEN; col *= LEN;
 
         for (int r = 0; r < squares.length; r++) {
@@ -47,7 +47,7 @@ public class Block { //TODO Tests
 
         if (r.nextBoolean() ) {
             nr = r.nextInt(LEN_TOT) + 1;
-            if (exist(nr) || Utils.existHorizontally(board, nr, row) || Utils.existVertically(board, nr, col) ) {
+            if (exist(nr) || board.existHorizontally(nr, row) || board.existVertically(nr, col) ) {
                 nr = 0;
             }
         }
@@ -128,7 +128,7 @@ public class Block { //TODO Tests
 
     /**
      * Checks if the spesified nr exists in the spesified row
-     * @param nr The value the method check against
+     * @param nr The value the method checks against
      * @param row Which row to be checked {0, 1, 2}
      * @return - True if the number exists int the row
      */
@@ -200,11 +200,11 @@ public class Block { //TODO Tests
         return block.toString();
     }
 
-    public Square[][] getSquares() {
+    public SquareHandler[][] getSquares() {
         return squares;
     }
 
-    public void setSquares(Square[][] squares) {
+    public void setSquares(SquareHandler[][] squares) {
         this.squares = squares;
     }
 

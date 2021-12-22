@@ -71,26 +71,37 @@ public class SquareHandler extends Square {
 
         value.setDisable(true); //Disables the numbers, so they don't block the squares
         value.setOpacity(1); //Sets the opacity back to 0%
+        if (!isEditable()) {
+            value.setStyle("-fx-text-fill: Blue");
+        }
 
         return true;
     }
 
     private void checkSquares(int nr) {
-        if (board.completeHorizontal(row)) {
+        if (board.completeHorizontal(row)) { //TODO Sometimes works, not at 1st selection but 2nd
+            System.out.println("Horizantal complete, at row " + row);
             //Highlight row green
         }
-        if (board.completeVertical(col)) {
+        if (board.completeVertical(col)) { //TODO Doesn't work
+            System.out.println("Vertical complete, at column " + col);
             //Highlight column green
         }
-        if (board.getBoard()[row/LEN][col/LEN].completeBlock()) {
+        if (board.getBoard()[row/LEN][col/LEN].completeBlock()) { //TODO Doesn't work
+            System.out.println("Block " + row/LEN + ";" + col/LEN + " complete");
             //Highlight block green
         }
-        if (board.existHorizonally(nr, row)) {
+        if (board.existHorizontally(nr, row)) { //Works
+            System.out.println("Duplicates at row " + row);
+            board.getDuplicateHorizontally(this);
             //Mark dupelicates with red font
         }
-        if (board.existVertically(nr, col)) {
+        if (board.existVertically(nr, col)) { //Works
+            System.out.println("Duplicates at column " + col);
+            board.getDuplicateVertically(this);
             //Mark dupelicates with red font
         }
+        System.out.println("----------");
     }
 
     @Override
@@ -115,10 +126,6 @@ public class SquareHandler extends Square {
         }
     }
 
-    public Label getValue() {
-        return value;
-    }
-
     /**
      * Starts the KeyHandler if the square is editable
      * @param e MouseEvent
@@ -138,4 +145,15 @@ public class SquareHandler extends Square {
         return isEditable();
     }
 
+    public Label getValue() {
+        return value;
+    }
+
+    public int getRow() {
+        return row;
+    }
+
+    public int getCol() {
+        return col;
+    }
 }

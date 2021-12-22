@@ -15,6 +15,7 @@ public class UtilsTest extends BoardTest {
 
     }
 
+    @Deprecated
     @Test
     void existHorizontallyTest() {
         fullBoard();
@@ -26,6 +27,7 @@ public class UtilsTest extends BoardTest {
         }
     }
 
+    @Deprecated
     @Test
     void existVerticallyTest() {
         fullBoard();

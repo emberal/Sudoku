@@ -1,5 +1,7 @@
 package sudoku.board;
 
+import sudoku.control.SquareHandler;
+
 public class Board {
 
     public static final int LEN = 3;
@@ -123,10 +125,10 @@ public class Board {
      * @param row
      * @return
      */
-    public boolean existHorizonally(int nr, int row) { //TODO Test
+    public boolean existHorizontally(int nr, int row) { //TODO Test
 
         for (Block b : board[row / LEN]) {
-            if (b.existHorizontally(nr, row % LEN)) {
+            if (b != null && b.existHorizontally(nr, row % LEN)) {
                 return true;
             }
         }
@@ -142,11 +144,53 @@ public class Board {
     public boolean existVertically(int nr, int col) { //TODO Test
 
         for (Block[] b : board) {
-            if (b[col / LEN].existVertically(nr, col % LEN)) {
+            if (b[col / LEN] != null && b[col / LEN].existVertically(nr, col % LEN)) {
                 return true;
             }
         }
         return false;
+    }
+
+    /**
+     * Checks if there are duplicate numbers in a row, and return the first SquareHandler int the row
+     * @param sqr The object the method checks against
+     * @return - The SquareHandler objekt, or null, if there are no duplicates
+     */
+    public SquareHandler getDuplicateHorizontally(SquareHandler sqr) { //TODO Test
+
+        int row = sqr.getRow();
+
+        if (existHorizontally(sqr.getNr(), row)) {
+            for (Block b : board[row / LEN]) {
+                for (int c = 0; c < b.getSquares().length; c++) {
+                    if (b.getSquares()[row % LEN][c] != sqr && b.getSquares()[row % LEN][c].getNr() == sqr.getNr()) {
+                        return b.getSquares()[row % LEN][c];
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Checks if there are duplicate numbers in a column, and return the first SquareHandler int the column
+     * @param sqr The objekt the method checks against
+     * @return - The SquareHandler objekt, or null, if there are no duplicates
+     */
+    public SquareHandler getDuplicateVertically(SquareHandler sqr) { //TODO Test
+
+        int col = sqr.getCol();
+
+        if (existVertically(sqr.getNr(), col)) {
+            for (Block[] b : board) {
+                for (int c = 0; c < b[col / LEN].getSquares().length; c++) {
+                    if (b[col / LEN].getSquares()[c][col % LEN] != sqr && b[col / LEN].getSquares()[c][col % LEN].getNr() == sqr.getNr()) {
+                        return b[col / LEN].getSquares()[c][col % LEN];
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     @Override
