@@ -156,7 +156,7 @@ public class Board {
      * @param sqr The object the method checks against
      * @return - The SquareHandler objekt, or null, if there are no duplicates
      */
-    public SquareHandler getDuplicateHorizontally(SquareHandler sqr) { //TODO Test
+    public SquareHandler dupeHorizontal(SquareHandler sqr) { //TODO Test
 
         int row = sqr.getRow();
 
@@ -177,7 +177,7 @@ public class Board {
      * @param sqr The objekt the method checks against
      * @return - The SquareHandler objekt, or null, if there are no duplicates
      */
-    public SquareHandler getDuplicateVertically(SquareHandler sqr) { //TODO Test
+    public SquareHandler dupeVertical(SquareHandler sqr) { //TODO Test
 
         int col = sqr.getCol();
 

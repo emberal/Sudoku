@@ -3,6 +3,7 @@ package sudoku.control;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import sudoku.board.Board;
+import sudoku.board.Duplicates;
 import sudoku.board.Square;
 import sudoku.gui.Interface;
 import sudoku.gui.SquareGUI;
@@ -15,7 +16,9 @@ import static sudoku.board.Board.LEN;
 
 public class SquareHandler extends Square {
 
-    private static final String S = "   ";
+    private static final String S = "   ",
+            RED = "-fx-text-fill: Red",
+            BLACK = "-fx-text-fill: Black";
 
     private SquareGUI square;
     private Label value; //TODO set different colour to the numbers placed by the game
@@ -93,13 +96,28 @@ public class SquareHandler extends Square {
         }
         if (board.existHorizontally(nr, row)) { //Works
             System.out.println("Duplicates at row " + row);
-            board.getDuplicateHorizontally(this);
-            //Mark dupelicates with red font
+            SquareHandler dupe = board.dupeHorizontal(this);
+            if (dupe != null) {
+                value.setStyle(RED);
+                dupe.value.setStyle(RED);
+                Duplicates.add(dupe.getId(), nr);
+            }
+            //Mark duplicates with red font
+        }
+        else {
+            value.setStyle(BLACK); //TODO Reset the previous duplicates to Black
         }
         if (board.existVertically(nr, col)) { //Works
             System.out.println("Duplicates at column " + col);
-            board.getDuplicateVertically(this);
-            //Mark dupelicates with red font
+            SquareHandler dupe = board.dupeVertical(this);
+            if (dupe != null) {
+                value.setStyle(RED);
+                dupe.value.setStyle(RED);
+            }
+            //Mark duplicates with red font
+        }
+        else {
+            value.setStyle(BLACK); //TODO Reset the previous duplicates to Black
         }
         System.out.println("----------");
     }
@@ -147,6 +165,10 @@ public class SquareHandler extends Square {
 
     public Label getValue() {
         return value;
+    }
+
+    public String getId() {
+        return square.getId();
     }
 
     public int getRow() {

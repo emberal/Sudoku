@@ -155,17 +155,45 @@ public class BoardTest extends Application {
     }
 
     @Test
-    void getDuplicateHorizontallyTest() { //TODO Test
+    void getDuplicateHorizontallyTest() {
         fullBoard();
 
-        Assertions.assertNull(board.getDuplicateHorizontally(board.getBoard()[0][0].getSquares()[0][0]));
+        Assertions.assertNull(board.dupeHorizontal(board.getBoard()[0][0].getSquares()[0][0]));
+
+        int n = 9;
+        for (int i = 0; i < LEN; i++) {
+            for (int j = 0; j < LEN; j++) {
+                board.getBoard()[i][j].getSquares()[j][j].setEditable(true);
+                board.getBoard()[i][j].getSquares()[j][j].setNr(n);
+                n--;
+            }
+        }
+        System.out.println(board);
+
+        Assertions.assertEquals(9, board.dupeHorizontal(board.getBoard()[0][1].getSquares()[0][2]).getNr());
+        Assertions.assertEquals(5, board.dupeHorizontal(board.getBoard()[1][0].getSquares()[1][2]).getNr());
+        Assertions.assertEquals(2, board.dupeHorizontal(board.getBoard()[2][1].getSquares()[1][0]).getNr());
     }
 
     @Test
-    void getDuplicateVerticallyTest() { //TODO Test
+    void getDuplicateVerticallyTest() {
         fullBoard();
 
-        Assertions.assertNull(board.getDuplicateVertically(board.getBoard()[0][0].getSquares()[0][0]));
+        Assertions.assertNull(board.dupeVertical(board.getBoard()[0][0].getSquares()[0][0]));
+
+        int n = 9;
+        for (int i = 0; i < LEN; i++) {
+            for (int j = 0; j < LEN; j++) {
+                board.getBoard()[j][i].getSquares()[j][j].setEditable(true);
+                board.getBoard()[j][i].getSquares()[j][j].setNr(n);
+                n--;
+            }
+        }
+        System.out.println(board);
+
+        Assertions.assertEquals(9, board.dupeVertical(board.getBoard()[1][0].getSquares()[2][0]).getNr());
+        Assertions.assertEquals(5, board.dupeVertical(board.getBoard()[0][1].getSquares()[2][1]).getNr());
+        Assertions.assertEquals(2, board.dupeVertical(board.getBoard()[1][2].getSquares()[1][1]).getNr());
     }
 
     @Override
