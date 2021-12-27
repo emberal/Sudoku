@@ -5,4 +5,5 @@ module sudoku.board {
 
     opens sudoku.board to javafx.fxml;
     exports sudoku;
+    opens sudoku.board.duplicates to javafx.fxml;
 }

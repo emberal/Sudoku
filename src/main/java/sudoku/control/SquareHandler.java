@@ -3,7 +3,6 @@ package sudoku.control;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import sudoku.board.Board;
-import sudoku.board.Duplicates;
 import sudoku.board.Square;
 import sudoku.gui.Interface;
 import sudoku.gui.SquareGUI;
@@ -100,7 +99,7 @@ public class SquareHandler extends Square {
             if (dupe != null) {
                 value.setStyle(RED);
                 dupe.value.setStyle(RED);
-                Duplicates.add(dupe.getId(), nr);
+                //Duplicates.add(dupe.getId(), nr);
             }
             //Mark duplicates with red font
         }
