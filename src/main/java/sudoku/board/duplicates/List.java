@@ -1,7 +1,5 @@
 package sudoku.board.duplicates;
 
-import sudoku.control.SquareHandler;
-
 import java.util.ArrayList;
 
 public class List {
@@ -19,4 +17,14 @@ public class List {
     public int size() {
         return list.size();
     }
+
+    public ArrayList<Duplicate> getList() {
+        return list;
+    }
+
+    @Override
+    public String toString(){
+        return list.toString();
+    }
 }
+

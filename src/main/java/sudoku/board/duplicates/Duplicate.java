@@ -7,13 +7,13 @@ import java.util.ArrayList;
 public class Duplicate {
 
     private ArrayList<SquareHandler> dupe;
+    private List list;
 
     public Duplicate() {
         dupe = new ArrayList<>();
     }
 
     public void add(SquareHandler s) {
-        List list;
         if (isEmpty() ) {
             list = new List();
             list.add(this);
@@ -30,11 +30,36 @@ public class Duplicate {
     }
 
     public boolean rm(SquareHandler s) {
-        return dupe.remove(s);
+        boolean rm = dupe.remove(s);
+        if (isSingle()) {
+            dupe.remove(0);
+        }
+        return rm;
     }
 
     public boolean isEmpty() {
         return size() == 0;
+    }
+
+    public boolean isSingle() {
+        return size() == 1;
+    }
+
+    public List getList() {
+        return list;
+    }
+
+    @Override
+    public String toString() {
+        return dupe.toString();
+    }
+
+    public String getIDs() {
+        StringBuilder s = new StringBuilder();
+        for (SquareHandler sqr : dupe) {
+            s.append(sqr.getId() ).append(", ");
+        }
+        return s.toString();
     }
 
 }

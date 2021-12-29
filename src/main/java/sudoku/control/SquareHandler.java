@@ -4,6 +4,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import sudoku.board.Board;
 import sudoku.board.Square;
+import sudoku.board.duplicates.Duplicate;
 import sudoku.gui.Interface;
 import sudoku.gui.SquareGUI;
 
@@ -97,9 +98,15 @@ public class SquareHandler extends Square {
             System.out.println("Duplicates at row " + row);
             SquareHandler dupe = board.dupeHorizontal(this);
             if (dupe != null) {
+                Duplicate d = new Duplicate();
+                d.add(this); d.add(dupe);
+
+                //TESTS
+                System.out.println(d.getIDs());
+                System.out.println(d.getList());
+
                 value.setStyle(RED);
                 dupe.value.setStyle(RED);
-                //Duplicates.add(dupe.getId(), nr);
             }
             //Mark duplicates with red font
         }

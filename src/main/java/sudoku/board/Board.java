@@ -2,6 +2,8 @@ package sudoku.board;
 
 import sudoku.control.SquareHandler;
 
+import java.util.ArrayList;
+
 public class Board {
 
     public static final int LEN = 3;
@@ -156,19 +158,34 @@ public class Board {
      * @param sqr The object the method checks against
      * @return - The SquareHandler objekt, or null, if there are no duplicates
      */
-    public SquareHandler dupeHorizontal(SquareHandler sqr) { //TODO Test
+    public ArrayList<SquareHandler> dupeHorizontal(SquareHandler sqr, int row) { //TODO Fix
 
-        int row = sqr.getRow();
+        ArrayList<SquareHandler> dupes = new ArrayList<>();
 
-        if (existHorizontally(sqr.getNr(), row)) {
-            for (Block b : board[row / LEN]) {
-                for (int c = 0; c < b.getSquares().length; c++) {
-                    if (b.getSquares()[row % LEN][c] != sqr && b.getSquares()[row % LEN][c].getNr() == sqr.getNr()) {
-                        return b.getSquares()[row % LEN][c];
+        for (int b = 0; b < LEN; b++) { //Blocks
+            for (int i = 0; i < LEN-1; i++) {
+                for (int j = i+1; j < LEN; j++) {
+
+                    SquareHandler[] sq = board[row / LEN][b].getSquares()[row % LEN];
+                    if (sq[i] == sq[j]) {
+                        dupes.add(sq[i]);
+                        dupes.add(sq[j]);
                     }
                 }
             }
         }
+
+//        int row = sqr.getRow();
+//
+//        if (existHorizontally(sqr.getNr(), row)) {
+//            for (Block b : board[row / LEN]) {
+//                for (int c = 0; c < b.getSquares().length; c++) {
+//                    if (b.getSquares()[row % LEN][c] != sqr && b.getSquares()[row % LEN][c].getNr() == sqr.getNr()) {
+//                        return b.getSquares()[row % LEN][c];
+//                    }
+//                }
+//            }
+//        }
         return null;
     }
 
