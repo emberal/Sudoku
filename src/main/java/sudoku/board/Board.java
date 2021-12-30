@@ -4,6 +4,8 @@ import sudoku.control.SquareHandler;
 
 import java.util.ArrayList;
 
+import static sudoku.control.SquareHandler.BLACK;
+
 public class Board {
 
     public static final int LEN = 3;
@@ -154,60 +156,90 @@ public class Board {
     }
 
     /**
-     * Checks if there are duplicate numbers in a row, and return the first SquareHandler int the row
-     * @param sqr The object the method checks against
-     * @return - The SquareHandler objekt, or null, if there are no duplicates
+     * Checks if there are duplicate numbers in a row, and returns an array containing the objects with duplicate values
+     * @param row The row the method checks against
+     * @return - SquareHandler[] with all the duplicates in the row, or null, if there are no duplicates
      */
-    public ArrayList<SquareHandler> dupeHorizontal(SquareHandler sqr, int row) { //TODO Fix
+    public SquareHandler[] dupeHorizontal(int row) {
 
         ArrayList<SquareHandler> dupes = new ArrayList<>();
 
-        for (int b = 0; b < LEN; b++) { //Blocks
-            for (int i = 0; i < LEN-1; i++) {
-                for (int j = i+1; j < LEN; j++) {
+        for (int b = 0; b < LEN; b++) {
+            for (int l = 0; l < LEN; l++) {
 
-                    SquareHandler[] sq = board[row / LEN][b].getSquares()[row % LEN];
-                    if (sq[i] == sq[j]) {
-                        dupes.add(sq[i]);
-                        dupes.add(sq[j]);
+                for (int i = 0; i < LEN; i++) {
+                    for (int j = i; j < LEN; j++) {
+                        SquareHandler sq1 = board[row / LEN][b].getSquares()[row % LEN][i];
+                        SquareHandler sq2 = board[row / LEN][l].getSquares()[row % LEN][j];
+
+                        if (sq1 != sq2 && sq1.getNr() == sq2.getNr()) {
+
+                            if (!dupes.contains(sq1)) {
+                                dupes.add(sq1);
+                            }
+                            if (!dupes.contains(sq2)) {
+                                dupes.add(sq2);
+                            }
+                        }
                     }
                 }
             }
         }
-
-//        int row = sqr.getRow();
-//
-//        if (existHorizontally(sqr.getNr(), row)) {
-//            for (Block b : board[row / LEN]) {
-//                for (int c = 0; c < b.getSquares().length; c++) {
-//                    if (b.getSquares()[row % LEN][c] != sqr && b.getSquares()[row % LEN][c].getNr() == sqr.getNr()) {
-//                        return b.getSquares()[row % LEN][c];
-//                    }
-//                }
-//            }
-//        }
-        return null;
+        resetColoursHorizontally(row);
+        if (dupes.size() == 0) {
+            return null;
+        }
+        return dupes.toArray(SquareHandler[]::new);
     }
 
     /**
-     * Checks if there are duplicate numbers in a column, and return the first SquareHandler int the column
-     * @param sqr The objekt the method checks against
-     * @return - The SquareHandler objekt, or null, if there are no duplicates
+     * Checks if there are duplicate numbers in a column, and returns an array containing the objects with duplicate values
+     * @param col The column the method checks against
+     * @return - SquareHandler[] with all the duplicates in the column, or null, if there are no duplicates
      */
-    public SquareHandler dupeVertical(SquareHandler sqr) { //TODO Test
+    public SquareHandler[] dupeVertical(int col) {
 
-        int col = sqr.getCol();
+        ArrayList<SquareHandler> dupes = new ArrayList<>();
 
-        if (existVertically(sqr.getNr(), col)) {
-            for (Block[] b : board) {
-                for (int c = 0; c < b[col / LEN].getSquares().length; c++) {
-                    if (b[col / LEN].getSquares()[c][col % LEN] != sqr && b[col / LEN].getSquares()[c][col % LEN].getNr() == sqr.getNr()) {
-                        return b[col / LEN].getSquares()[c][col % LEN];
+        for (int b = 0; b < LEN; b++) {
+            for (int l = 0; l < LEN; l++) {
+
+                for (int i = 0; i < LEN; i++) {
+                    for (int j = i; j < LEN; j++) {
+                        SquareHandler sq1 = board[b][col / LEN].getSquares()[i][col % LEN];
+                        SquareHandler sq2 = board[l][col / LEN].getSquares()[j][col % LEN];
+
+                        if (sq1 != sq2 && sq1.getNr() == sq2.getNr()) {
+
+                            if (!dupes.contains(sq1)) {
+                                dupes.add(sq1);
+                            }
+                            if (!dupes.contains(sq2)) {
+                                dupes.add(sq2);
+                            }
+                        }
                     }
                 }
             }
         }
-        return null;
+        if (dupes.size() == 0) {
+            return null;
+        }
+        return dupes.toArray(SquareHandler[]::new);
+    }
+
+    private void resetColoursHorizontally(int row) { //TODO Works sometimes xD
+        for (int b = 0; b < LEN; b++) {
+            for (int i = 0; i < LEN; i++) {
+                if (board[row / LEN][b].getSquares()[row % LEN][i].isEditable()) {
+                    board[row / LEN][i].getSquares()[row % LEN][i].getValue().setStyle(BLACK);
+                }
+            }
+        }
+    }
+
+    private void resetColoursVertically(int col) { //TODO
+
     }
 
     @Override

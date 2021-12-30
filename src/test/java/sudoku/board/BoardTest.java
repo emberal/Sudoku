@@ -155,45 +155,55 @@ public class BoardTest extends Application {
     }
 
     @Test
-    void getDuplicateHorizontallyTest() {
+    void dupeHorizontallyTest() {
         fullBoard();
 
-        Assertions.assertNull(board.dupeHorizontal(board.getBoard()[0][0].getSquares()[0][0]));
+        for (int i = 0; i < LEN_TOT; i++) {
+            Assertions.assertNull(board.dupeHorizontal(i));
+        }
 
         int n = 9;
         for (int i = 0; i < LEN; i++) {
             for (int j = 0; j < LEN; j++) {
                 board.getBoard()[i][j].getSquares()[j][j].setEditable(true);
+                board.getBoard()[i][j].getSquares()[1][j].setEditable(true);
                 board.getBoard()[i][j].getSquares()[j][j].setNr(n);
+                board.getBoard()[i][j].getSquares()[1][j].setNr(n);
                 n--;
             }
         }
         System.out.println(board);
 
-        Assertions.assertEquals(9, board.dupeHorizontal(board.getBoard()[0][1].getSquares()[0][2]).getNr());
-        Assertions.assertEquals(5, board.dupeHorizontal(board.getBoard()[1][0].getSquares()[1][2]).getNr());
-        Assertions.assertEquals(2, board.dupeHorizontal(board.getBoard()[2][1].getSquares()[1][0]).getNr());
+        Assertions.assertEquals(2, board.dupeHorizontal(2).length);
+        Assertions.assertEquals(2, board.dupeHorizontal(5).length);
+        Assertions.assertEquals(4, board.dupeHorizontal(4).length);
+        Assertions.assertEquals(4, board.dupeHorizontal(7).length);
     }
 
     @Test
-    void getDuplicateVerticallyTest() {
+    void dupeVerticallyTest() {
         fullBoard();
 
-        Assertions.assertNull(board.dupeVertical(board.getBoard()[0][0].getSquares()[0][0]));
+        for (int i = 0; i < LEN_TOT; i++) {
+            Assertions.assertNull(board.dupeVertical(i));
+        }
 
         int n = 9;
         for (int i = 0; i < LEN; i++) {
             for (int j = 0; j < LEN; j++) {
                 board.getBoard()[j][i].getSquares()[j][j].setEditable(true);
+                board.getBoard()[j][i].getSquares()[j][0].setEditable(true);
                 board.getBoard()[j][i].getSquares()[j][j].setNr(n);
+                board.getBoard()[j][i].getSquares()[j][0].setNr(n);
                 n--;
             }
         }
         System.out.println(board);
 
-        Assertions.assertEquals(9, board.dupeVertical(board.getBoard()[1][0].getSquares()[2][0]).getNr());
-        Assertions.assertEquals(5, board.dupeVertical(board.getBoard()[0][1].getSquares()[2][1]).getNr());
-        Assertions.assertEquals(2, board.dupeVertical(board.getBoard()[1][2].getSquares()[1][1]).getNr());
+        Assertions.assertEquals(4, board.dupeVertical(0).length);
+        Assertions.assertEquals(2, board.dupeVertical(1).length);
+        Assertions.assertEquals(2, board.dupeVertical(4).length);
+        Assertions.assertEquals(4, board.dupeVertical(6).length);
     }
 
     @Override

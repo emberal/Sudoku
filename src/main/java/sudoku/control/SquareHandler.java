@@ -8,6 +8,8 @@ import sudoku.board.duplicates.Duplicate;
 import sudoku.gui.Interface;
 import sudoku.gui.SquareGUI;
 
+import java.util.ArrayList;
+
 import static sudoku.board.Board.LEN;
 
 /**
@@ -16,7 +18,7 @@ import static sudoku.board.Board.LEN;
 
 public class SquareHandler extends Square {
 
-    private static final String S = "   ",
+    public static final String S = "   ",
             RED = "-fx-text-fill: Red",
             BLACK = "-fx-text-fill: Black";
 
@@ -96,17 +98,14 @@ public class SquareHandler extends Square {
         }
         if (board.existHorizontally(nr, row)) { //Works
             System.out.println("Duplicates at row " + row);
-            SquareHandler dupe = board.dupeHorizontal(this);
-            if (dupe != null) {
-                Duplicate d = new Duplicate();
-                d.add(this); d.add(dupe);
 
-                //TESTS
-                System.out.println(d.getIDs());
-                System.out.println(d.getList());
+            SquareHandler[] dupes = board.dupeHorizontal(row);
+            if (dupes != null) {
 
-                value.setStyle(RED);
-                dupe.value.setStyle(RED);
+                for (SquareHandler dupe : dupes) {
+                    dupe.value.setStyle(RED);
+                }
+
             }
             //Mark duplicates with red font
         }
@@ -115,10 +114,11 @@ public class SquareHandler extends Square {
         }
         if (board.existVertically(nr, col)) { //Works
             System.out.println("Duplicates at column " + col);
-            SquareHandler dupe = board.dupeVertical(this);
+            SquareHandler[] dupe = board.dupeVertical(col);
             if (dupe != null) {
-                value.setStyle(RED);
-                dupe.value.setStyle(RED);
+                for (SquareHandler s : dupe) {
+                    s.value.setStyle(RED);
+                }
             }
             //Mark duplicates with red font
         }
@@ -131,8 +131,8 @@ public class SquareHandler extends Square {
     @Override
     public void setNr(int nr) {
         if (updateValue(nr) ) {
-            checkSquares(nr);
             super.setNr(nr);
+            checkSquares(nr);
         }
     }
 
