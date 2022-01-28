@@ -4,11 +4,8 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import sudoku.board.Board;
 import sudoku.board.Square;
-import sudoku.board.duplicates.Duplicate;
 import sudoku.gui.Interface;
 import sudoku.gui.SquareGUI;
-
-import java.util.ArrayList;
 
 import static sudoku.board.Board.LEN;
 
